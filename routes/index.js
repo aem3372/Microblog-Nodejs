@@ -10,7 +10,7 @@ module.exports = function(app) {
   app.use('/', require('./home'));
   app.use('/reg', require('./reg'));
 
-  
+    
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -27,7 +27,8 @@ module.exports = function(app) {
       res.status(err.status || 500);
       res.render('error', {
         message: err.message,
-        error: err
+        error: err,
+        layout: "false"
       });
     });
   }
@@ -38,8 +39,10 @@ module.exports = function(app) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: {}
+      error: {},
+      layout: "false"
     });
   });
 
+  
 };

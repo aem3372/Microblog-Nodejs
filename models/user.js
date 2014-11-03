@@ -21,11 +21,16 @@ User.prototype.save = function save(callback) {
         return callback(err);
       }
 
-      collection.ensureIndex('name', {unique: true});
+      collection.ensureIndex('name', {unique: true}, function(err) {
+        if(err) {
+          mongodb.close();
+          return callback(err);
+        }
 
-      conllection.insert(user, {safe: true}, function(err, user) {
-        mongodb.close();
-        callback(err, user);
+        collection.insert(user, {safe: true}, function(err) {
+            mongodb.close();
+            callback(err);
+        });
       });
     });
   });
@@ -37,7 +42,7 @@ User.get = function get(username, callback) {
       return callback(err);
     }
 
-    db.collection('users', function(err) {
+    db.collection('users', function(err, collection) {
       if(err) {
         mongodb.close();
         return callback(err);
