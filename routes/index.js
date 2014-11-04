@@ -9,8 +9,8 @@ module.exports = function(app) {
 
   app.use('/', require('./home'));
   app.use('/reg', require('./reg'));
+  app.use('/login', require('./login'));
 
-    
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -44,5 +44,4 @@ module.exports = function(app) {
     });
   });
 
-  
 };
