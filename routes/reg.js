@@ -3,6 +3,11 @@ var crypto = require('crypto');
 var User = require('../models/user');
 
 router.get('/', function(req, res){
+  if(req.session.user) {
+    req.flash('error','已登录');
+    return res.redirect('/');
+  }
+
   res.render('reg', {
     title: '用户注册',
     layout: 'layout'
@@ -10,6 +15,11 @@ router.get('/', function(req, res){
 });
 
 router.post('/', function(req, res) {
+  if(req.session.user) {
+    req.flash('error','已登录');
+    return res.redirect('/');
+  }
+
   if(req.body['password-repeat'] != req.body['password']) {
     req.flash('error', '两次输入的口令不一致');
     return res.redirect('/reg');

@@ -10,7 +10,8 @@ module.exports = function(app) {
   app.use('/', require('./home'));
   app.use('/reg', require('./reg'));
   app.use('/login', require('./login'));
-
+  app.use('/logout', require('./logout'));
+  
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     var err = new Error('Not Found');

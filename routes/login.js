@@ -3,6 +3,11 @@ var crypto = require('crypto');
 var User = require('../models/user');
 
 router.get('/', function(req, res) {
+  if(req.session.user) {
+    req.flash('error','已登录');
+    return res.redirect('/');
+  }
+
   res.render('login', {
     title: '用户登录',
     layout: 'layout'
@@ -10,6 +15,11 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+  if(req.session.user) {
+    req.flash('error','已登录');
+    return res.redirect('/');
+  }
+  
   var md5 = crypto.createHash('md5');
   var password = md5.update(req.body.password).digest('base64');
 
